@@ -84,18 +84,26 @@ async def verify(ctx, member: discord.Member = None):
 @client.command(pass_context=True)
 async def check(ctx, arg):
  server = client.get_server(pbot_server)
+ admin = discord.utils.get(server.roles, name=main_admin_role)
  member2 = ctx.message.author
- user2check = ctx.message.raw_mentions
- user_id = ''.join(user2check)
- db.execute("SELECT discord_name from members_uwu WHERE discord_id="+user_id)
- discord_name = db.fetchone()
- join_date = server.get_member(user_id).joined_at
- embed = discord.Embed(title=':mag: >PBot User Lookup', color=0xc242f4)
- embed.add_field(name='Discord Name', value=arg, inline=False)
- embed.add_field(name='Discord ID', value=user_id)
- embed.add_field(name='Name in DB', value=discord_name[ 0 ], inline=False)
- embed.add_field(name='Join Date', value=join_date)
- await client.say(embed=embed)
+ print(str(member2.roles))
+ if admin in member2.roles:
+     user2check = ctx.message.raw_mentions
+     user_id = ''.join(user2check)
+     db.execute("SELECT discord_name from members WHERE discord_id="+user_id)
+     discord_name = db.fetchone()
+     join_date = server.get_member(user_id).joined_at
+     top_role = server.get_member(user_id).top_role
+     embed = discord.Embed(title=':mag: >PBot User Lookup', color=0xc242f4)
+     embed.add_field(name='Discord Name', value=arg, inline=False)
+     embed.add_field(name='Discord ID', value=user_id, inline=False)
+     embed.add_field(name='Name in DB', value=discord_name, inline=False)
+     embed.add_field(name='Join Date', value=join_date, inline=False)
+     embed.add_field(name='Highest rank', value=top_role, inline=False)
+     embed.set_footer(text='Requested by '+str(member2)+' on '+str(datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+     await client.say(embed=embed)
+ else:
+     await client.say(':negative_squared_cross_mark: Only admins can use this!')
 
 
 @client.event
@@ -172,6 +180,19 @@ async def verifyuser(ctx,arg):
      await client.say(':negative_squared_cross_mark: Only admins can use this!')
 
 
+@client.command()
+async def isitsaturday():
+ t = lxml.html.parse('http://isitsaturday.herokuapp.com')
+ result = t.find(".//title").text
+ if 'NO' in str(result):
+     await client.say(":red_circle: NO, IT'S NOT SATURDAY")
+ else:
+     await client.say(":white_check_mark: YES. IT'S SATURDAY")
+
+
+@client.command()
+async def ping():
+ await client.say('I work !!!')
 
 
 
