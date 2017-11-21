@@ -71,6 +71,20 @@ else{
       </style>
 </head>
 
+<html >
+<head>
+  <meta charset="UTF-8">
+  <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
+  <title>/>p/ Registration</title>
+
+
+      <link rel="stylesheet" href="css/style.css">
+      <style type="text/css">
+      .reason_join {
+}
+      </style>
+</head>
+
 <body>
   <div id="login-box">
   <div class="left">
@@ -78,10 +92,10 @@ else{
 <form method="POST">
     <input type="text" name="name" placeholder="Name" />
     <input type="text" name="email" placeholder="E-mail" />
-    <input name="reason_join" type="text" class="reason_join" placeholder="Reason for joining" /><br>
+    <input name="reason_join" type="text" class="reason_join" placeholder="Reason for joining" style="display: none;"/><br>
     Are you from the FB group ? <br>
-    <input type="radio" name="in_group" value="yes" checked>Yes<br>
-    <input type="radio" name="in_group" value="no">No<br><br>
+    <input type="radio" name="in_group" id ="radio_yes" onclick ="handleclick(this)" value="yes" checked = "true">Yes<br>
+    <input type="radio" name="in_group" id ="radio_no" onclick ="handleclick(this)" value="no" checked = "true">No<br><br>
     <input type="checkbox" name="rule_agree" value="yes"> I agree to uphold the />p/ constitution at all times<br>
 
     <input type="submit" name="signup_submit" value="Sign me up" /><br><br>
@@ -106,5 +120,21 @@ If you wish to become a mod, you either cant or you just have to show your worth
 
   </div>
 </div>
+<script>
+
+	function handleclick(radio)
+	{
+		if (radio.checked === true && radio.id === "radio_no") 
+		{
+			$("input.reason_join").hide();
+		}
+		else
+		{
+			$("input.reason_join").show();
+		}
+	}
+	
+</script>
 </body>
 </html>
+
