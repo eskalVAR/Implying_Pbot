@@ -61,19 +61,6 @@ else{
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>/>p/ Registration</title>
-
-
-      <link rel="stylesheet" href="css/style.css">
-      <style type="text/css">
-      .reason_join {
-}
-      </style>
-</head>
-
-<html >
-<head>
-  <meta charset="UTF-8">
   <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
   <title>/>p/ Registration</title>
 
